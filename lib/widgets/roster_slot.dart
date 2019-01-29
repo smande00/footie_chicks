@@ -22,13 +22,13 @@ class RosterSlotWidget extends StatelessWidget {
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.all(Radius.elliptical(15, 15))),
                     child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children:[
-                            Text(player?.name ?? ""),
+                            Center(child: Text(player?.name ?? "")),
                             getPlayerCurrentTimeWidget(context),
                             getPlayerTotalTimeWidget(context),
                           ]),
                 ));
-      //});
   }
   
   getPlayerCurrentTimeWidget(context){
@@ -37,7 +37,7 @@ class RosterSlotWidget extends StatelessWidget {
           builder: (context, AsyncSnapshot<Duration> snapshot) {
             var currentPlayTime =  BlocProvider.of(context).currentRoster.players[player.id]?.playTimeCurrent;
 
-            return Text( "Current: " + (currentPlayTime / 60).floor().toString() + ":" + (currentPlayTime % 60).toString(), style: Theme.of(context).textTheme.caption);
+            return Text( "Current: " + (currentPlayTime / 60).floor().toString().padLeft(2,'0') + ":" + (currentPlayTime % 60).toString().padLeft(2,'0'), style: Theme.of(context).textTheme.caption);
           });
   }
 
@@ -46,7 +46,9 @@ class RosterSlotWidget extends StatelessWidget {
             stream: BlocProvider.of(context).gameTimerStream.stream,
             builder: (context, AsyncSnapshot<Duration> snapshot) {
               var totalPlayTime =  BlocProvider.of(context).currentRoster.players[player.id]?.playTimeTotal;
-              return Text("Total: " + (totalPlayTime / 60).floor().toString() + ":" + (totalPlayTime %60).toString(), style: Theme.of(context).textTheme.caption,);
+              return Text("Total: " + (totalPlayTime / 60).floor().toString().padLeft(2,'0') + ":" + (totalPlayTime %60).toString().padLeft(2,'0'), 
+                          style: Theme.of(context).textTheme.caption,
+                          textAlign: TextAlign.left,);
             });
     }
 
