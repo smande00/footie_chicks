@@ -58,7 +58,7 @@ class GameFieldWidget extends StatelessWidget {
                 children: [
                            bloc.isTimerRunning() ? IconButton(icon:Icon(Icons.pause), onPressed:(){bloc.stopTimer();}) : 
                            IconButton(icon:Icon(Icons.play_arrow), onPressed:(){bloc.startTimer();},),  
-                           Text(snapshot.hasData ? (snapshot.data.inMinutes.toString() + ":" + (snapshot.data.inSeconds % 60).toString()) : "0")]));
+                           Text(snapshot.hasData ? (snapshot.data.inMinutes.toString().padLeft(2, '0') + ":" + (snapshot.data.inSeconds % 60).toString().padLeft(2,'0')) : "0")]));
           });
   }
 
